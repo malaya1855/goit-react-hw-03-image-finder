@@ -1,6 +1,6 @@
 import { SearchFrom } from './Searchbar/Searchbar';
-// import { ImageGallery } from './ImageGallery/ImageCallery';
-// import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
+import { ImageGallery } from './ImageGallery/ImageGallery.jsx/ImageGallery';
+import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import * as ImageApi from './utilities/imageApi';
 import { Component } from 'react';
 
@@ -31,13 +31,9 @@ class App extends Component {
           onSubmit={this.onHandleSubmit}
           onChange={this.onHandleChange}
         />
-        <ul>
-          {photos.map(({ id, webformatURL, tags }) => (
-            <li key={id} className="gallery-item">
-              <img src={webformatURL} alt={tags} />
-            </li>
-          ))}
-        </ul>
+        <ImageGallery>
+          <ImageGalleryItem photos={photos} />
+        </ImageGallery>
       </div>
     );
   }
