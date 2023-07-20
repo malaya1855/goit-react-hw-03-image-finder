@@ -1,5 +1,5 @@
 import { RotatingLines } from 'react-loader-spinner';
-import { BackDrop } from './Loader.styled';
+import { BackDrop } from 'components';
 
 export const Loader = () => {
   return (

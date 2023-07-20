@@ -1,11 +1,13 @@
 import { Component } from 'react';
 
-import { SearchFrom } from './Searchbar/Searchbar';
-import { ImageGallery } from './ImageGallery/ImageGallery.jsx/ImageGallery';
-import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
+import {
+  SearchBar,
+  ImageGallery,
+  ImageGalleryItem,
+  Button,
+  Loader,
+} from 'components';
 import * as ImageApi from './utilities/imageApi';
-import { Button } from './Button/Button';
-import { Loader } from './Loader/Loader';
 
 class App extends Component {
   state = {
@@ -48,7 +50,7 @@ class App extends Component {
         this.setState({
           photos: [...hits],
           isLoading: false,
-          showMore: hits.length > totalHits,
+          showMore: hits.length < totalHits,
           isEmpty: hits.length === 0,
         });
       })
@@ -65,14 +67,20 @@ class App extends Component {
     const { query, photos, showMore, isLoading, isEmpty } = this.state;
     return (
       <div>
-        <SearchFrom onHandleSubmit={this.onHandleSubmit} />
+        <SearchBar onHandleSubmit={this.onHandleSubmit} />
         <ImageGallery items={photos}>
           <ImageGalleryItem />
         </ImageGallery>
         {showMore && <Button onClick={this.onHandleClick}>Load more</Button>}
         {isEmpty && (
-          <div>
-            Sorry. According to your search {query} there are no images...
+          <div
+            style={{
+              fontSize: 20,
+              color: '#010101',
+              textAlign: 'center',
+            }}
+          >
+            Sorry. According to your search "{query}" there are no images...
           </div>
         )}
         {isLoading && <Loader />}

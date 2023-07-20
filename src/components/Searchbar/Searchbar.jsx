@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types';
 import {
   SearchbarField,
   SearchForm,
   SearchBtn,
   SearchBtnLabel,
   SearchInput,
-} from './Searchbar.styled';
+} from 'components';
 
-export const SearchFrom = ({ onHandleSubmit }) => {
+export const SearchBar = ({ onHandleSubmit }) => {
   const onFormSubmit = ev => {
     ev.preventDefault();
     const { value } = ev.target.elements.search;
@@ -23,7 +24,6 @@ export const SearchFrom = ({ onHandleSubmit }) => {
         <SearchInput
           type="text"
           name="search"
-          // onChange={onChange}
           autoComplete="off"
           autoFocus
           placeholder="Search images and photos"
@@ -32,3 +32,5 @@ export const SearchFrom = ({ onHandleSubmit }) => {
     </SearchbarField>
   );
 };
+
+SearchBar.propTypes = { onHandleSubmit: PropTypes.func };

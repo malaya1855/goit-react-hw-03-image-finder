@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import SearchIcon from 'components/icons/icons8-search.svg';
 export const SearchbarField = styled.header`
-top: 0;
+  top: 0;
   left: 0;
   position: sticky;
   z-index: 1100;
@@ -16,7 +17,7 @@ top: 0;
   background-color: #3f51b5;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-}`;
+`;
 export const SearchForm = styled.form`
   display: flex;
   align-items: center;
@@ -31,7 +32,7 @@ export const SearchBtn = styled.button`
   width: 48px;
   height: 48px;
   border: 0;
-  // background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg');
+  background-image: url(${SearchIcon});
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
@@ -67,5 +68,4 @@ display: inline-block;
     ::placeholder {
         font: inherit;
         font-size: 18px;
-
 `;

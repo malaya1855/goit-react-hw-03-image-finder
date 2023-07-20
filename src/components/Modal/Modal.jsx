@@ -1,5 +1,7 @@
 import { Component } from 'react';
-import { Overlay, ModalImage } from 'components/Modal/Modal.styled';
+import PropTypes from 'prop-types';
+
+import { Overlay, ModalImage } from 'components';
 
 export class Modal extends Component {
   componentDidMount() {
@@ -16,20 +18,30 @@ export class Modal extends Component {
     }
   };
 
-  onCloseModal = ev => {
-    console.log(ev.currentTarget);
-    console.log(ev.target);
-    if (ev.currentTarget === ev.target) {
+  onHandleClick = ev => {
+    if (ev.target === ev.currentTarget) {
       this.props.onClose();
     }
   };
+
   render() {
+    const { imageSrc, imageAlt } = this.props;
     return (
-      <Overlay onKeyDown={this.onCloseModal}>
-        <ModalImage onClick={this.onCloseModal}>
-          <img src={this.props.imageSrc} alt={this.props.imageAlt} />
+      <Overlay onClick={this.onHandleClick}>
+        <ModalImage>
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            style={{ pointerEvents: 'auto' }}
+          />
         </ModalImage>
       </Overlay>
     );
   }
 }
+
+Modal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  imageSrc: PropTypes.string.isRequired,
+  imageAlt: PropTypes.string.isRequired,
+};
