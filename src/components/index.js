@@ -16,6 +16,10 @@ export * from './Modal/Modal.styled'
 export * from './Searchbar/Searchbar'
 export * from './Searchbar/Searchbar.styled'
 
+export * from './TextEmpty/TextEmpty'
+export * from './TextEmpty/TextEmpty.styled'
+
+
 
 
 

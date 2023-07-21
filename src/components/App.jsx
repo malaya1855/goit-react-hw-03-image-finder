@@ -1,12 +1,6 @@
 import { Component } from 'react';
 
-import {
-  SearchBar,
-  ImageGallery,
-  ImageGalleryItem,
-  Button,
-  Loader,
-} from 'components';
+import { SearchBar, ImageGallery, Button, Loader, TextEmpty } from 'components';
 import * as ImageApi from './utilities/imageApi';
 
 class App extends Component {
@@ -22,18 +16,18 @@ class App extends Component {
 
   componentDidUpdate(_, prevState) {
     const { query, page } = this.state;
-    if (prevState.page !== page) {
+    if (prevState.query !== query || prevState.page !== page) {
       this.setState({ isLoading: true });
       ImageApi.getImages(query, page)
         .then(({ hits, totalHits }) => {
-          this.setState({
+          this.setState(prevState => ({
             photos: [...prevState.photos, ...hits],
-            isLoading: false,
             showMore: page < Math.ceil(totalHits / 12),
             isEmpty: hits.length === 0,
-          });
+          }));
         })
-        .catch(error => console.log(error));
+        .catch(error => console.log(error))
+        .finally(this.setState({ isLoading: false }));
     }
   }
 
@@ -45,16 +39,6 @@ class App extends Component {
       showMore: false,
       isLoading: true,
     });
-    ImageApi.getImages(query)
-      .then(({ hits, totalHits }) => {
-        this.setState({
-          photos: [...hits],
-          isLoading: false,
-          showMore: hits.length < totalHits,
-          isEmpty: hits.length === 0,
-        });
-      })
-      .catch(error => console.log(error));
   };
 
   onHandleClick = () => {
@@ -68,21 +52,10 @@ class App extends Component {
     return (
       <div>
         <SearchBar onHandleSubmit={this.onHandleSubmit} />
-        <ImageGallery items={photos}>
-          <ImageGalleryItem />
-        </ImageGallery>
+        <ImageGallery items={photos} />
+
         {showMore && <Button onClick={this.onHandleClick}>Load more</Button>}
-        {isEmpty && (
-          <div
-            style={{
-              fontSize: 20,
-              color: '#010101',
-              textAlign: 'center',
-            }}
-          >
-            Sorry. According to your search "{query}" there are no images...
-          </div>
-        )}
+        {isEmpty && <TextEmpty query={query} />}
         {isLoading && <Loader />}
       </div>
     );
